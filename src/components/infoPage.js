@@ -67,7 +67,7 @@ const Info = (props) => {
       <div className={classes.mainStyleBlock}>
         <div className={classes.h1StyleWarn}>WARNING!!!</div>
         <div className={classes.h2StyleWarn}>There is no such issue ID</div>
-        <Link className={classes.linkDecoration} to="/Timer"><ContainedButtons name={'return'}/></Link>
+        <Link className={classes.linkDecoration} to="/timer-task"><ContainedButtons name={'return'}/></Link>
       </div>
     )
   } else {
@@ -78,7 +78,7 @@ const Info = (props) => {
         <div className={classes.h2Style}><span className={classes.spanStyle}>{'Time start :'}</span> {newObj.timeStart}</div>
         <div className={classes.h2Style}><span className={classes.spanStyle}>{'Time stop :'}</span> {newObj.timeEnd}</div>
         <div className={classes.h2Style}><span className={classes.spanStyle}>{'Time spend :'}</span> {newObj.timeSpend}</div>
-        <Link className={classes.linkDecoration} to="/Timer"><ContainedButtons name={'return'}/></Link>
+        <Link className={classes.linkDecoration} to="/timer-task"><ContainedButtons name={'return'}/></Link>
       </div>
     )
   }

@@ -8,9 +8,9 @@ export default function App () {
     <div >
       <Router>
         <Switch>
-          <Route path='/Timer' component={Timer} />
+          <Route path='/timer-task' component={Timer} />
           <Route path='/Info/:id' component={Info} />
-          <Redirect from='/' to='/Timer'/>
+          <Redirect from='/' to='/timer-task'/>
         </Switch>
       </Router>
     </div>
