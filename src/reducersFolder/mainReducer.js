@@ -1,6 +1,5 @@
 import _ from 'lodash'
 
-const SET_STATUS = 'SET_STATUS'
 const SET_BTNNAME = 'SET_BTNNAME'
 const SET_INPUTTEXT = 'SET_INPUTTEXT'
 const SET_LOG = 'SET_LOG'
@@ -8,7 +7,6 @@ const REMOVE_ROW_LOG = 'REMOVE_ROW_LOG'
 const SET_NAV_BAR = 'SET_NAV_BAR'
 
 const initialState = {
-  status: false,
   btnName: 'start',
   inputText: '',
   dataObject: {},
@@ -19,9 +17,6 @@ const initialState = {
 
 export function mainReducer (state = initialState, action) {
   switch (action.type) {
-    case SET_STATUS:
-      return { ...state, status: action.payload }
-
     case SET_BTNNAME:
       return { ...state, btnName: action.payload }
 
@@ -49,13 +44,6 @@ export function setText (inputText) {
   return {
     type: 'SET_INPUTTEXT',
     payload: inputText
-  }
-}
-
-export function setStatus (status) {
-  return {
-    type: 'SET_STATUS',
-    payload: status
   }
 }
 

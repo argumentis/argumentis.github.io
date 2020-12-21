@@ -13,7 +13,7 @@ export const arrPusher = (arr, currTime, inputText) => {
     timeEndMls: currTime,
     timeSpendMls: currTime - JSON.parse(localStorage.getItem('dateTimerRun')),
     day: timeDay,
-    mounth: timeMonth
+    month: timeMonth
   })
   localStorage.setItem('arrLog', JSON.stringify(arr))
   return (arr)

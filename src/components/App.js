@@ -1,6 +1,6 @@
 import React from 'react'
-import Timer from './timerComponents/timerFolder/Timer'
-import Info from './infoPage'
+import Timer from './timerComponents/timerFolder/Index'
+import Info from './pageInfo/Index'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 export default function App () {

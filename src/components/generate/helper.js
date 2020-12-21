@@ -9,7 +9,7 @@ export const GenerateFunc = () => {
     const timeEnd = timeSpend + timeStart
     const date = new Date()
     const timeDay = date.getDate()
-    const timeMounth = date.getMonth()
+    const timeMonth = date.getMonth()
     arr.push({
       id: uniqid(),
       task: `task ${i + 1}`,
@@ -20,7 +20,7 @@ export const GenerateFunc = () => {
       timeEndMls: timeEnd,
       timeSpendMls: timeSpend,
       day: timeDay,
-      mounth: timeMounth
+      month: timeMonth
     })
   }
   localStorage.setItem('arrLog', JSON.stringify(arr))

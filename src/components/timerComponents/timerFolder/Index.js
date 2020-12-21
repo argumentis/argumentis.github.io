@@ -7,8 +7,8 @@ import NavTabs from '../../tableBar'
 import InputTaskName from '../input'
 import Alert from '../../alert'
 import { connect } from 'react-redux'
-import { setStatus, setBtnName, setText, setLog } from '../../../reducersFolder/mainReducer'
-import ContainedButtonsGenerate from '../../generate/generateButton'
+import { setBtnName, setText, setLog } from '../../../reducersFolder/mainReducer'
+import ContainedButtonsGenerate from '../../generate/Index'
 import { arrPusher } from './helper'
 import _ from 'lodash'
 
@@ -45,9 +45,8 @@ const useStylesTimer = makeStyles((theme) => ({
 }))
 
 const mapStateToProps = store => {
-  const { status, btnName, inputText, tableLog, statusNavBar } = store.main
+  const { btnName, inputText, tableLog, statusNavBar } = store.main
   return {
-    status,
     btnName,
     inputText,
     tableLog,
@@ -57,7 +56,6 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setStatusAction: status => dispatch(setStatus(status)),
     setBtnNameAction: btnName => dispatch(setBtnName(btnName)),
     setInputTextAction: inputText => dispatch(setText(inputText)),
     setLogAction: tableLog => dispatch(setLog(tableLog))
@@ -65,7 +63,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function Timer (props) {
-  const { setStatusAction, status, setBtnNameAction, btnName, setInputTextAction, inputText, setLogAction, tableLog, statusNavBar } = props
+  const { setBtnNameAction, btnName, setInputTextAction, inputText, setLogAction, tableLog, statusNavBar } = props
   const classesTimer = useStylesTimer()
   const currTime = Date.now()
   const [seconds, setSeconds] = useState(0)
@@ -75,8 +73,10 @@ function Timer (props) {
   const newData = _.cloneDeep(tableLog)
 
   useEffect(() => {
+    if (JSON.parse(localStorage.getItem('timerStatus')) === null) {
+      localStorage.setItem('timerStatus', false)
+    }
     if (JSON.parse(localStorage.getItem('timerStatus')) === true) {
-      setStatusAction(true)
       setBtnNameAction('stop')
       setSeconds((currTime - JSON.parse(localStorage.getItem('dateTimerRun'))) / 1000)
       secondCounter()
@@ -89,28 +89,30 @@ function Timer (props) {
     }, 1000))
   }
 
+  const inputCheck = () => {
+    if (inputText == false) {
+      setInsideBtnStatus(true)
+    } else {
+      if (statusNavBar !== 1) {
+        setBtnNameAction('start')
+        clearInterval(intervalID)
+        setLogAction(arrPusher(newData, currTime, inputText))
+        setInputTextAction('')
+        localStorage.setItem('timerStatus', false)
+        setSeconds(0)
+      }
+    }
+  }
+
   const timerLoader = () => {
     const TimeRun = Date.now()
-    if (status === false) {
+    if (JSON.parse(localStorage.getItem('timerStatus')) === false) {
       secondCounter()
-      setStatusAction(true)
       setBtnNameAction('stop')
       localStorage.setItem('dateTimerRun', TimeRun)
       localStorage.setItem('timerStatus', true)
     } else {
-      if (inputText === '' || inputText === undefined) {
-        setInsideBtnStatus(true)
-      } else {
-        if (statusNavBar !== 1) {
-          setBtnNameAction('start')
-          setStatusAction(false)
-          clearInterval(intervalID)
-          setLogAction(arrPusher(newData, currTime, inputText))
-          setInputTextAction('')
-          localStorage.setItem('timerStatus', false)
-          setSeconds(0)
-        }
-      }
+      inputCheck()
     }
   }
 
@@ -146,7 +148,5 @@ Timer.propTypes = {
   inputText: PropTypes.string.isRequired,
   setLogAction: PropTypes.func.isRequired,
   tableLog: PropTypes.array.isRequired,
-  setStatusAction: PropTypes.func.isRequired,
-  status: PropTypes.bool.isRequired,
   statusNavBar: PropTypes.number.isRequired
 }
